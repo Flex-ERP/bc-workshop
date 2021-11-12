@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_tax_inherit" model="ir.ui.view">
+        <field name="name">account.tax.form</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <!-- added visibility of amount when based_on_margin is selected -->
+            <xpath expr="//div[1]" position="replace">
+                <div attrs="{'invisible':[('amount_type','not in', ('fixed', 'percent', 'division', 'based_on_margin'))]}">
+                    <field name="amount" class="oe_inline"/>
+                    <span class="o_form_label oe_inline" attrs="{'invisible':[('amount_type','=','fixed')]}">%</span>
+                </div>
+            </xpath>
+            <xpath expr="//label[1]" position="replace">
+                <label for="amount" attrs="{'invisible':[('amount_type','not in', ('fixed', 'percent', 'division', 'based_on_margin'))]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

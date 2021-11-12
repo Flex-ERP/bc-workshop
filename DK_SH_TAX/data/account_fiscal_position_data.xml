@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Second hand sale tax -->
+        <record id="sh_tax_sale" model="account.tax">
+            <field name="name">Sale(Second Hand)</field>
+            <field name="amount_type">based_on_margin</field>
+            <field name="type_tax_use">sale</field>
+            <field name="amount">20</field>
+            <field name="active">True</field>
+        </record>
+        <!-- second hand tax purchase tax -->
+        <record id="sh_tax_purchase" model="account.tax">
+            <field name="name">Purchase(Second Hand)</field>
+            <field name="amount_type">based_on_margin</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount">0</field>
+            <field name="active">True</field>
+        </record>
+        <!-- second hand fiscal position -->
+        <record forcecreate="True" id="dk_sh_fiscal" model="account.fiscal.position">
+            <field name="name">Second Hand Fiscal Position</field>
+            <field name="second_hand_tax">True</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.EditListPopup" t-inherit-mode="extension" owl="1">
+        <xpath expr="//header" position="replace">
+            <header class="title" style='background-color:rgb(110,200,155) !important; color:white'>Select Lot/Serial Number for Product</header>
+        </xpath>
+        <xpath expr="//main" position="replace">
+            <div style="text-align: left; margin-left: 37px; margin-top:20px; margin-bottom:20px;">
+                 <label style="text-align:left"> Lot/Serial Number :  </label>
+                 <select id="lot_ids" class='lot' style="width:250px;height:30px; margin-left:20px;" name='lot_ids'>
+                     <t t-foreach="lots" t-as="item">
+                        <option t-att-value="item.name" t-att-class="{ selected: item.isSelected }"><t t-esc="item.name"/></option>
+                     </t>                  
+                </select>
+            </div>
+        </xpath>    
+    </t>
+</templates>

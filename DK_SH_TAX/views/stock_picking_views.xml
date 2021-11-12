@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- added tax in move -->
+    <record id="stock_move_tax_inherit" model="ir.ui.view">
+        <field name="name">stock.move.tax</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='lot_ids']" position="after">
+                <field name="tax_code" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='move_ids_without_package']//form//field[@name='description_picking']" position="after">
+                <field name="tax_code" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

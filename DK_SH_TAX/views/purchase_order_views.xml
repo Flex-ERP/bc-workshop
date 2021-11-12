@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- added second_hand_tax in purchase order in form and tree view-->
+    <record id="purchase_order_tax_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.tax</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="second_hand_tax"/>
+                <field name="fiscal_tax_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='fiscal_position_id']" position="attributes">
+                <attribute name="domain">[('second_hand_tax', '=', second_hand_tax)]</attribute>
+            </xpath>
+            <xpath expr="//page[@name='products']//tree//field[@name='taxes_id']" position="attributes">
+                <attribute name="domain">[('id', 'in', parent.fiscal_tax_ids)]</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="purchase_order_tax_tree_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.tax.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="second_hand_tax"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

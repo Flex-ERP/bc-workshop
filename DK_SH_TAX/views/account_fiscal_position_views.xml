@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- added second_hand_tax in fiscal position in form view-->
+    <record id="fiscal_sh_tax_inherit" model="ir.ui.view">
+        <field name="name">account.fiscal.position.tax</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="second_hand_tax"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+    

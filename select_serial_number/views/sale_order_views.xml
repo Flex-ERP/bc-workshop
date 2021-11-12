@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Inherited sale order form view-->
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_order_template_id']" position="after">
+                <field name="lot_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="stock_lot_id" invisible="1"/>
+                <field name="product_tracking" force_save="1" invisible="1"/>
+                <field name="lot_id" attrs="{'required': ['|', ('product_tracking', '=', 'serial'), ('product_tracking', '=', 'lot')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
+                <attribute name="string">Taxes</attribute>
+                <attribute name="attrs">{'readonly': ['|', ('product_tracking', '=', 'serial'), ('product_tracking', '=', 'lot')]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_line_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.line</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_uom']" position="after">
+                <field name="product_tracking" force_save="1" invisible="1"/>
+                <field name="tax_id" attrs="{'required': ['|', ('product_tracking', '=', 'serial'), ('product_tracking', '=', 'lot')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
